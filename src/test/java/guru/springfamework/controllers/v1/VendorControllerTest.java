@@ -60,6 +60,7 @@ public class VendorControllerTest {
         when(vendorService.getAllVendors()).thenReturn(Arrays.asList(vendor1, vendor2));
 
         mockMvc.perform(get(VendorController.BASE_URL)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.vendors", hasSize(2)));
@@ -76,6 +77,7 @@ public class VendorControllerTest {
 
         //when
         mockMvc.perform(get(VendorController.BASE_URL + "/1")
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo("Hot Buttered Slugs, Inc")));
@@ -95,6 +97,7 @@ public class VendorControllerTest {
         when(vendorService.createNewVendor(vendorDTO)).thenReturn(returnDTO);
 
         mockMvc.perform(post(VendorController.BASE_URL)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendorDTO)))
                 .andExpect(status().isCreated())
@@ -116,6 +119,7 @@ public class VendorControllerTest {
 
         //when/then
         mockMvc.perform(put(VendorController.BASE_URL + "/1")
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendorDTO)))
                 .andExpect(status().isOk())
@@ -136,6 +140,7 @@ public class VendorControllerTest {
         when(vendorService.patchVendor(anyLong(), any(VendorDTO.class))).thenReturn(returnDTO);
 
         mockMvc.perform(patch(VendorController.BASE_URL + "/1")
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendorDTO)))
                 .andExpect(status().isOk())
